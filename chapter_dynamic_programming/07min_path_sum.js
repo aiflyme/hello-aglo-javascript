@@ -21,11 +21,12 @@ function minPathSumDFSMem(grid, mem, n, m) {
     //越界 返回Infinity
     if (n < 0 || m < 0) return Infinity;
 
-    if (mem[n][m] !== -1) return men[n][m];
+    if (mem[n][m] !== -1) return mem[n][m];
 
     const up = minPathSumDFS(grid, n - 1, m);
     const left = minPathSumDFS(grid, n, m - 1);
-    return Math.min(up, left) + grid[n][m];
+    mem[n][m] = Math.min(up, left) + grid[n][m];
+    return mem[n][m];
 }
 
 //动态规划

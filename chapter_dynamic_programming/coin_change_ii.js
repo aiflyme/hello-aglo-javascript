@@ -27,6 +27,7 @@ function coinChangeIIDP(coins, amt) {
             }
         }
     }
+    console.log(dp);
     return dp[n][amt];
 }
 
