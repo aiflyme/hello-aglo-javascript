@@ -20,6 +20,7 @@ function coinChangeDP(coins, amt, n) {
             }
         }
     }
+    console.log(dp);
     return dp[n][amt] !== amt + 1 ? dp[n][amt] : -1;
 }
 
