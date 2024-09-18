@@ -49,30 +49,28 @@ var mergeTwoLists = function (l1, l2) {
             prev.next = l2;
             l2 = l2.next;
         }
-        console.log(prev);
         prev = prev.next;
     }
 
-    // 合并后 l1 和 l2 最多只有一个还未被合并完，我们直接将链表末尾指向未合并完的链表即可
     prev.next = l1 === null ? l2 : l1;
-
+    // console.log(prehead.next);
     return prehead.next;
 };
+const l1n0 = new ListNode(1);
+const l1n1 = new ListNode(2);
+const l1n2 = new ListNode(4);
+l1n0.next = l1n1;
+l1n1.next = l1n2;
 
-list1 = new ListNode(1, 2, 4);
-list2 = new ListNode(1, 3, 4);
-const arrs = mergeTwoLists(list1, list2);
-console.log(arrs);
+const l2n0 = new ListNode(1);
+const l2n1 = new ListNode(5);
+const l2n2 = new ListNode(6);
+l2n0.next = l2n1;
+l2n1.next = l2n2;
 
-// list1 = [];
-// list2 = [];
-// const arrs2 = mergeTwoLists(list1, list2);
-// console.log(arrs2);
+// console.log(l1n0, l2n0);
 
-// list1 = [];
-// list2 = [0];
-// const arrs3 = mergeTwoLists(list1, list2);
-// console.log(arrs3);
+const arrs = mergeTwoLists(l1n0, l2n0);
 
 //02
 //Reverse Linked List
@@ -81,6 +79,7 @@ console.log(arrs);
  * @return {ListNode}
  */
 var reverseList = function (head) {
+<<<<<<< Updated upstream
     if (head === null) return head;
     let prev = null;
     //preHead = new ListNode(-1);
@@ -92,11 +91,22 @@ var reverseList = function (head) {
         prev = curr;
         curr = nextNode;
         //console.log('222', head, 333, curr);
+=======
+    let prev = null;
+    while (head !== null) {
+        let tmp = head.next;
+        head.next = prev;
+
+        prev = head;
+
+        head = tmp;
+>>>>>>> Stashed changes
     }
 
     return prev;
 };
 
+<<<<<<< Updated upstream
 const list2a = new ListNode(1);
 const list2b = new ListNode(2);
 const list2c = new ListNode(3);
@@ -167,3 +177,20 @@ map.set(1, 2);
 map.set(1, 4);
 
 // console.log(map.get(1));
+=======
+const headN0 = new ListNode(1);
+const headN1 = new ListNode(2);
+const headN2 = new ListNode(3);
+const headN3 = new ListNode(4);
+const headN4 = new ListNode(5);
+
+headN0.next = headN1;
+headN1.next = headN2;
+headN2.next = headN3;
+headN3.next = headN4;
+
+console.log(headN0);
+
+const reverseListResult = reverseList(headN0);
+console.log(reverseListResult);
+>>>>>>> Stashed changes
