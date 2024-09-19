@@ -179,7 +179,51 @@ var generateMatrix = function (n) {
 };
 generateMatrix(3);
 
-//30
+//30 48. 旋转图像
+var rotate = function (matrix) {
+    const n = matrix.length;
+
+    //const arrs = [];
+    const tmp = matrix.map((arr) => {
+        return arr.slice();
+    });
+    console.log(tmp);
+    // const tmp = Array.from({ length: n }, () => new Array(n));
+
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            matrix[j][n - 1 - i] = tmp[i][j]; //turn right 90 dgress
+            // smatrix[n - 1 - j][i] = tmp[i][j]; //turn left 90 dgress
+        }
+    }
+    return matrix;
+};
+
+//method 2
+var rotateSource = function (matrix) {
+    const n = matrix.length;
+
+    let tmp = 0;
+    for (let i = 0; i < n / 2; i++) {
+        for (let j = 0; j < Math.floor((n + 1) / 2); j++) {
+            tmp = matrix[i][j];
+            matrix[i][j] = matrix[n - 1 - j][i];
+            matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j];
+            matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i];
+            matrix[j][n - 1 - i] = tmp;
+        }
+    }
+    return matrix;
+};
+
+const matrix30 = [
+    [5, 1, 9, 11],
+    [2, 4, 8, 10],
+    [13, 3, 6, 7],
+    [15, 14, 12, 16],
+];
+const rotates = rotateSource(matrix30);
+console.log('No.30', rotates);
 
 //31 8. 字符串转换整数 (atoi)
 var myAtoi = function (s) {
