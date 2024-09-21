@@ -52,7 +52,7 @@ function topKHeap(nums, k) {
 }
 
 /* Driver Code */
-const nums = [1, 7, 6, 3, 2];
+const nums = [9, 7, 6, 3, 2];
 const k = 3;
 const res = topKHeap(nums, k);
 console.log(`最大的 ${k} 个元素为`, res);
