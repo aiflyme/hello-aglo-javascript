@@ -1,7 +1,100 @@
-//43 104 二叉树的最大深度
+//Definition for a binary tree node.
+function TreeNode(val, left, right) {
+    this.val = val === undefined ? 0 : val;
+    this.left = left === undefined ? null : left;
+    this.right = right === undefined ? null : right;
+}
 
+//43 104 二叉树的最大深度
+var maxDepth = function (root) {
+    //method 1
+    // if (root === null) return 0;
+    // else {
+    //     return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    // }
+
+    //method 2
+    if (!root) return 0;
+
+    let queue = [],
+        res = 0;
+    queue.push(root);
+
+    while (queue.length !== 0) {
+        const tmp = [];
+        queue.forEach((e) => {
+            if (e.left) tmp.push(e.left);
+            if (e.right) tmp.push(e.right);
+        });
+        queue = tmp;
+        res += 1;
+    }
+    return res;
+};
+
+const t0_43 = new TreeNode(3);
+const t1_43 = new TreeNode(9);
+const t2_43 = new TreeNode(20);
+const t3_43 = new TreeNode(15);
+const t4_43 = new TreeNode(7);
+
+t0_43.left = t1_43;
+t0_43.right = t2_43;
+t2_43.left = t3_43;
+t2_43.right = t4_43;
+
+// const root = [3, 9, 20, null, null, 15, 7];
+const maxDepths = maxDepth(t0_43);
+console.log(maxDepths);
 //44 113. 路径总和 II
 
+const t0_44 = new TreeNode(5);
+const t1_44 = new TreeNode(4);
+const t2_44 = new TreeNode(8);
+const t3_44 = new TreeNode(11);
+const t4_44 = new TreeNode(13);
+const t5_44 = new TreeNode(4);
+const t6_44 = new TreeNode(7);
+const t7_44 = new TreeNode(2);
+const t8_44 = new TreeNode(5);
+const t9_44 = new TreeNode(1);
+
+t0_44.left = t1_44;
+t0_44.right = t2_44;
+t1_44.left = t3_44;
+t2_44.left = t4_44;
+t2_44.right = t5_44;
+t3_44.left = t6_44;
+t3_44.right = t7_44;
+t5_44.left = t8_44;
+t5_44.right = t9_44;
+const root = [5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1],
+    targetSum = 22;
+var pathSum = function (root, targetSum) {
+    if (root === null) return root;
+    const res = [],
+        tmp = [],
+        state = [];
+    let sum = 0;
+    tmp.push(root);
+    const pathSums = function (root, targetSum, res, state, sum) {
+        if (root === null) return root;
+        state.push(root.val);
+        sum += root.val;
+        if (targetSum === sum && root.left === null && root.right === null) {
+            res.push([...state]);
+        }
+
+        pathSums(root.left, targetSum, res, state, sum);
+        pathSums(root.right, targetSum, res, state, sum);
+        state.pop();
+    };
+    pathSums(root, targetSum, res, state, sum);
+    return res;
+};
+
+const pathSumRS = pathSum(t0_44, targetSum);
+console.log(pathSumRS);
 //45 46. 全排列
 var permute = function (nums) {
     const res = [],
