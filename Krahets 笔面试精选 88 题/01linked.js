@@ -79,7 +79,6 @@ const arrs = mergeTwoLists(l1n0, l2n0);
  * @return {ListNode}
  */
 var reverseList = function (head) {
-<<<<<<< Updated upstream
     if (head === null) return head;
     let prev = null;
     //preHead = new ListNode(-1);
@@ -91,22 +90,11 @@ var reverseList = function (head) {
         prev = curr;
         curr = nextNode;
         //console.log('222', head, 333, curr);
-=======
-    let prev = null;
-    while (head !== null) {
-        let tmp = head.next;
-        head.next = prev;
-
-        prev = head;
-
-        head = tmp;
->>>>>>> Stashed changes
     }
 
     return prev;
 };
 
-<<<<<<< Updated upstream
 const list2a = new ListNode(1);
 const list2b = new ListNode(2);
 const list2c = new ListNode(3);
@@ -177,7 +165,6 @@ map.set(1, 2);
 map.set(1, 4);
 
 // console.log(map.get(1));
-=======
 const headN0 = new ListNode(1);
 const headN1 = new ListNode(2);
 const headN2 = new ListNode(3);
@@ -193,4 +180,3 @@ console.log(headN0);
 
 const reverseListResult = reverseList(headN0);
 console.log(reverseListResult);
->>>>>>> Stashed changes
