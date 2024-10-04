@@ -134,14 +134,6 @@ console.log(maxSubArrayRS);
 console.log('No.61 198. 打家劫舍');
 
 var rob = function (nums) {
-    // let odd = 0,
-    //     even = 0;
-    // for (let i = 0; i < nums.length; i++) {
-    //     (i + 1) % 2 === 0 ? (even += nums[i]) : (odd += nums[i]);
-    // }
-    // return Math.max(odd, even);
-
-    //method 2 DP
     const dp = new Array(nums.length).fill(0);
     dp[0] = nums[0];
     dp[1] = Math.max(nums[0], nums[1]);
@@ -159,27 +151,156 @@ console.log(robRS);
 console.log('No.62 213. 打家劫舍II');
 var rob = function (nums) {
     //method 1
-    // let odd = 0,
-    //     even = 0,
-    //     n = nums.length;
-    // for (let i = 0; i < nums.length; i++) {
-    //     (i + 1) % 2 === 0 ? (even += nums[i]) : (odd += nums[i]);
+    // const dp = new Array(nums.length).fill(0);
+    // dp[0] = nums[0];
+    // dp[1] = Math.max(nums[0], nums[1]);
+    // const n = nums.length;
+    // for (let i = 2; i < n; i++) {
+    //     dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
     // }
-    // if (n % 2 === 1) odd = odd - Math.min(nums[0], nums[nums.length - 1]);
-    // return Math.max(even, odd);
+    // if (n % 2 === 1) dp[n - 1] -= Math.min(nums[0], nums[n - 1]);
+    // console.log(dp);
+    // return Math.max(dp[n - 2], dp[n - 1]);
 
     //method 2
-    const dp = new Array(nums.length).fill(0);
+    if (nums.length === 0) return 0;
+    if (nums.length === 1) return nums[0];
+    if (nums.length === 2) return Math.max(nums[0], nums[1]);
+    const dp = new Array(nums.length - 1).fill(0),
+        dp2 = new Array(nums.length - 1).fill(0),
+        n = nums.length;
+
     dp[0] = nums[0];
     dp[1] = Math.max(nums[0], nums[1]);
-    const n = nums.length;
-    for (let i = 2; i < n; i++) {
+
+    for (let i = 2; i < nums.length - 1; i++) {
         dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
     }
-    if (n % 2 === 1) dp[n - 1] -= Math.min(nums[0], nums[n - 1]);
-    console.log(dp);
-    return Math.max(dp[n - 2], dp[n - 1]);
+
+    dp2[0] = nums[1];
+    dp2[1] = Math.max(nums[2], nums[1]);
+    console.log(dp, dp2);
+    for (let j = 2; j < nums.length - 1; j++) {
+        dp2[j] = Math.max(dp2[j - 2] + nums[j + 1], dp2[j - 1]);
+    }
+    console.log(dp, dp2);
+    return Math.max(dp2[n - 2], dp[n - 2]);
 };
-const nums62 = [2, 7, 9, 3, 1];
+const nums62 = [1, 2, 3, 1];
 const rob2RS = rob(nums62);
 console.log(rob2RS);
+
+//63 300. 最长递增子序列
+console.log('No.63 300. 最长递增子序列');
+var lengthOfLIS = function (nums) {
+    // const n = nums.length,
+    //     dp = Array(n).fill(1);
+    // dp[0] = 1;
+    // let count = 0;
+    // for (let i = 1; i < n; i++) {
+    //     for (let j = 0; j < i; j++) {
+    //         if (nums[i] > nums[j]) {
+    //             dp[i] = Math.max(dp[j] + 1, dp[i]);
+    //         }
+    //         console.log(dp);
+    //     }
+    //     count = Math.max(dp[i], count);
+    // }
+    // return count;
+
+    const n = nums.length,
+        dp = Array(n).fill(1);
+    dp[0] = 1;
+    let count = 0;
+    for (let i = 1; i < n; i++) {
+        for (let j = 0; j < i; j++) {
+            if (nums[i] > nums[j]) {
+                dp[i] = Math.max(dp[i], dp[j] + 1);
+            }
+        }
+        console.log(dp);
+    }
+    return Math.max(...dp);
+};
+const nums63 = [10, 9, 2, 5, 3, 7, 101, 18];
+const lengthOfLISRS = lengthOfLIS(nums63);
+console.log(lengthOfLISRS);
+
+//00 416. 分割等和子集
+console.log('No. 416. 分割等和子集');
+var canPartition = function (nums) {};
+const nums00 = [2, 2, 1, 1];
+const canPartitionRS = canPartition(nums00.sort((a, b) => a - b));
+console.log(canPartitionRS);
+
+//00 1137. 第 N 个泰波那契数
+var tribonacci = function (n) {
+    if (n === 0) return 0;
+    if (n === 1 || n === 2) return 1;
+    let a = 0,
+        b = 1,
+        c = 1;
+
+    for (let i = 4; i <= n; i++) {
+        const tmpA = b,
+            tmpB = c;
+        c = a + b + c;
+        b = tmpB;
+        a = tmpA;
+    }
+    return a + b + c;
+};
+
+const tribonacciRS = tribonacci(25);
+console.log(tribonacciRS);
+
+//00 746. 使用最小花费爬楼梯
+console.log('00 746. 使用最小花费爬楼梯');
+var minCostClimbingStairs = function (cost) {
+    if (cost.length === 0) return 0;
+    if (cost.length === 1) return cost[0];
+    const n = cost.length;
+    const dp = Array(cost.length + 1).fill(0);
+
+    //
+    dp[0] = cost[0];
+    dp[1] = cost[1];
+
+    for (let i = 2; i <= n; i++) {
+        //dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+        dp[i] = Math.min(dp[i - 1], dp[i - 2]) + cost[i];
+    }
+    return Math.min(dp[n - 2], dp[n - 1]);
+};
+
+cost746 = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]; // [10, 15, 20];
+const minCostClimbingStairsRS = minCostClimbingStairs(cost746);
+console.log(minCostClimbingStairsRS);
+
+//64 264. 丑数 II
+console.log('NO.64 264. 丑数 II');
+var nthUglyNumber = function (n) {
+    if (n === 1) return 1;
+    const dp = [],
+        tmp = new Set(),
+        arrs = [2, 3, 5];
+    let i = 0;
+    dp.push(1);
+
+    while (i <= n) {
+        if (dp[n - 1] > 0) break;
+        if (tmp.size <= n) {
+            arrs.forEach((arr) => {
+                tmp.add(arr * dp[i]);
+            });
+        }
+        dp.push(Math.min(...tmp));
+        tmp.delete(Math.min(...tmp));
+        i++;
+    }
+    console.log(tmp.size);
+    return dp[n - 1];
+};
+const n64 = 7;
+const nthUglyNumberRS = nthUglyNumber(n64);
+console.log(nthUglyNumberRS);
