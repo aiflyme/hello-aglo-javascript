@@ -79,3 +79,25 @@ console.log(singleNumberRS);
 
 console.log(2 & 2 & 2);
 console.log(3);
+
+//73 137. 只出现一次的数字 II
+console.log('No.73 137. 只出现一次的数字 II');
+var singleNumber2 = function (nums) {
+    const uniqueNum = new Map();
+    nums.forEach((num) => {
+        let count = 0;
+        if (uniqueNum.get(num)) {
+            count = uniqueNum.get(num) + 1;
+        } else count = 1;
+        uniqueNum.set(num, count);
+    });
+
+    for (const [i, v] of uniqueNum) {
+        if (v === 1) return i;
+    }
+    return false;
+};
+
+const nums73 = [2, 2, 3, 2];
+const singleNumber2RS = singleNumber2(nums73);
+console.log(singleNumber2RS);
