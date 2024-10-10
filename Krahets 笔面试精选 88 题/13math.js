@@ -70,3 +70,58 @@ const integerBreakRS = integerBreak(n76);
 console.log(integerBreakRS);
 
 // console.log(Math.floor(Math.sqrt(10)));
+
+console.log('No.77 89. 格雷编码');
+//77 89. 格雷编码
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var grayCode = function (n) {
+    const res = [0];
+    let head = 1;
+    for (let i = 0; i < n; i++) {
+        for (j = res.length - 1; j >= 0; j--) {
+            res.push(head + res[j]);
+        }
+        head <<= 1;
+    }
+    return res;
+};
+const n77 = 2;
+const grayCodeRS = grayCode(n77);
+console.log(grayCodeRS);
+
+//78 1823. 找出游戏的获胜者
+console.log('No.78 1823. 找出游戏的获胜者');
+var findTheWinner = function (n, k) {
+    //method 1
+    //const arr = Array.from({ length: n }, (_, index) => index + 1);
+    // while (arr.length > 1) {
+    //     for (let j = 1; j < k; j++) {
+    //         arr.push(arr.shift());
+    //     }
+    //     arr.shift();
+    // }
+    // return arr[0];
+
+    //method 2
+    // if (n === 1) return 1;
+    // return ((k + findTheWinner(n - 1, k) - 1) % n) + 1;
+
+    //method 3
+    let winner = 1;
+    for (let i = 2; i <= n; i++) {
+        winner = ((k + winner - 1) % i) + 1;
+    }
+    return winner;
+};
+const n78 = 5,
+    k78 = 3;
+const findTheWinnerRS = findTheWinner(n78, k78);
+console.log(findTheWinnerRS);
+
+const arr = [1, 2, 3, 4];
+//79 400. 第 N 位数字
+
+console.log(3 % 1);
