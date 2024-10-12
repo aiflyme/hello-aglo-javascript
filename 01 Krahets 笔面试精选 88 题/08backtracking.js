@@ -243,45 +243,49 @@ console.log('No.48: 40. 组合总和II');
 console.log(combinationSum2s48Rs);
 
 //49 79. 单词搜索
-
 var exist = function (board, word) {
     const m = board.length,
         n = board[0].length,
-        state = [];
+        wordArr = word.split('');
     let res = '';
 
-    state.push(board[0][0]);
-
-    const exists = (state, res, board, word, i, j) => {
-        if (res === word) {
-            return true;
+    const exists = (board, wordArr, i, j, k) => {
+        if (
+            i >= board.length ||
+            i < 0 ||
+            j >= board[0].length ||
+            j < 0 ||
+            board[i][j] !== word[k]
+        ) {
+            return false;
         }
+        if (k === word.length - 1) return true;
+        board[i][j] = '\0';
 
-        for (let k = 0; k < state.length; k++) {
-            if (!state[k]) continue;
-            res += word[k];
-            if (res !== word.substring(0, state.length)) continue;
-
-            //[i][j] left [i][j-1] right[i][j+1]  top[i-1][j] down [i+1][j]
-            if (j - 1 >= 0) state.push(board[i][j - 1]);
-            if (j + 1 <= j) state.push(board[i][j + 1]);
-            if (i - 1 <= 0) state.push(board[i - 1][j]);
-            if (board[i + 1][j]) state.push(board[i + 1][j]);
-            exists(state, res, board, word, m, n);
-
-            state.pop();
-            res.substring(0, res.length - 1);
-        }
+        const res =
+            exists(board, wordArr, i + 1, j, k + 1) ||
+            exists(board, wordArr, i - 1, j, k + 1) ||
+            exists(board, wordArr, i, j + 1, k + 1) ||
+            exists(board, wordArr, i, j - 1, k + 1);
+        board[i][j] = wordArr[k];
+        return res;
     };
-    exists(state, res, board, word, m, n);
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (exists(board, wordArr, i, j, 0)) return true;
+        }
+    }
+    return false;
 };
 
 const board = [
-        ['A', 'B', 'C', 'E'],
+        ['A', 'A', 'C', 'E'],
         ['S', 'F', 'C', 'S'],
         ['A', 'D', 'E', 'E'],
     ],
-    word = 'ABCCED';
+    word = 'AA'; //'ABCCED';
+
 const existRS = exist(board, word);
 console.log(existRS);
 // console.log(word.length, word.substring(0, 4).length);

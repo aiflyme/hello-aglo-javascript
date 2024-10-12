@@ -222,3 +222,16 @@ for (let i = 0; i < 3; i++) {
     arrs.push(-arr[i]);
 }
 console.log(arrs);
+
+//42 207. 课程表
+
+var canFinish = function (numCourses, prerequisites) {
+    for (let i = 0; i < numCourses; i++) {}
+};
+const numCourses = 2,
+    prerequisites = [
+        [1, 0],
+        [0, 1],
+    ];
+const canFinishRS = canFinish(numCourses, prerequisites);
+console.log(canFinishRS);
