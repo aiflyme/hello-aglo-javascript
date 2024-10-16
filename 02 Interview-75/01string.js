@@ -38,8 +38,12 @@ console.log(dynamicPasswordRS);
 //LCR 138. 有效数字
 
 var validNumber = function (s) {
-    // let res = false;
-    // s = s.trim();
+    let res = false,
+        i = 1,
+        sign = 1,
+        esign = 0;
+    s = s.trim();
+
     // 小数
     // if (s[0] === '-' || s[0] === '+' || (s[0]>0 && s[0]<=9)) {
     //     //至少一位数字，后面跟着一个点 '.'
@@ -47,8 +51,16 @@ var validNumber = function (s) {
     //     //一个点 '.' ，后面跟着至少一位数字
     //     if(s[1] === '.' || (s[1]>0 && s[1]<=9))res = true;
     // }
-    // //整数
-    // else if((s[0]>0 && s[0]<=9))
+    //整数
+    if (s[0] === '-') sign = '-1';
+    else if (s[0] === '+') i = 0;
+    for (let j = i; j < s.length; j++) {
+        if (s[i] > 0 && s[i] <= 9) {
+        } else if (s[i] === 'e' || s[i] === 'E') {
+            if (esign === 0 && s[i - 1] && s[i] > 0 && s[i] <= 9) {
+            }
+        }
+    }
 };
 
 const s03 = '0sad';
@@ -111,3 +123,8 @@ var myAtoi = function (str) {
 const str04 = '2147483648';
 const myAtoiRS = myAtoi(str04);
 console.log(myAtoiRS);
+
+const a = '2',
+    b = 2;
+console.log(typeof (a - 0));
+console.log(typeof b);
