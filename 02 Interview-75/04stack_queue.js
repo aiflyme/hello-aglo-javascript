@@ -113,3 +113,85 @@ arrB.push(arrA.pop());
 arrB.push(arrA.pop());
 arrB.push(arrA.pop());
 console.log(arrA, arrB);
+
+//18 LCR 184. 设计自助结算系统
+console.log('No.LCR 184. 设计自助结算系统');
+var Checkout = function () {
+    //a  stack b queue
+    (this.a = []), (this.b = []);
+};
+
+/**
+ * @return {number}
+ */
+Checkout.prototype.get_max = function () {
+    return this.b.length === 0 ? -1 : this.b[0];
+};
+
+/**
+ * @param {number} value
+ * @return {void}
+ */
+Checkout.prototype.add = function (value) {
+    this.a.push(value);
+
+    while (this.b.length > 0 && this.b[this.b.length - 1] < value) {
+        this.b.pop();
+    }
+    this.b.push(value);
+};
+
+/**
+ * @return {number}
+ */
+Checkout.prototype.remove = function () {
+    if (this.a.length === 0) return -1;
+    if (this.b[0] === this.a[0]) {
+        this.b.shift();
+    }
+    return this.a.shift();
+};
+
+var obj = new Checkout();
+
+obj.add(15);
+obj.add(9);
+obj.add(16);
+obj.add(10);
+var param_1 = obj.get_max();
+console.log(param_1, obj);
+var param_3 = obj.remove();
+console.log(param_3, obj);
+var param_4 = obj.get_max();
+console.log(param_4, obj);
+
+/**
+ * @param {number[]} heights
+ * @param {number} limit
+ * @return {number[]}
+ */
+//17 LCR 183. 望远镜中最高的海拔
+console.log('No.17 LCR 183. 望远镜中最高的海拔');
+var maxAltitude = function (heights, limit) {
+    const n = heights.length,
+        queue = [],
+        res = [];
+
+    for (let i = 0; i < limit; i++) {
+        queue.push(heights[i]);
+    }
+
+    res.push(Math.max(...queue));
+    console.log(res);
+    for (let j = limit; j < n; j++) {
+        queue.shift();
+        queue.push(heights[j]);
+
+        res.push(Math.max(...queue));
+    }
+    return res;
+};
+const heights = [14, 2, 27, -5, 28, 13, 39],
+    limit = 3;
+const maxAltitudeRS = maxAltitude(heights, limit);
+console.log(maxAltitudeRS);

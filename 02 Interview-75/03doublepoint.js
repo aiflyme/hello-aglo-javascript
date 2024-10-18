@@ -98,33 +98,63 @@ console.log(trainingPlanIIRS);
  */
 console.log('No.10 LCR 142. 训练计划 IV');
 var trainningPlanIV = function (l1, l2) {
-    if (!l1) return l2;
-    if (!l2) return l1;
-    if (!l1 && !l2) return null;
+    //Method 01
+    // if (!l1) return l2;
+    // if (!l2) return l1;
+    // if (!l1 && !l2) return null;
+    // let l3, cur;
+    // if (l1.val <= l2.val) {
+    //     l3 = l1;
+    //     l1 = l1.next;
+    // } else {
+    //     l3 = l2;
+    //     l2 = l2.next;
+    // }
+    // cur = l3;
+    // while (l1 || l2) {
+    //     //有L1 无L2
+    //     //有L1 有L2
+    //     //无L1 有L2
+    //     if (l1 && l2) {
+    //         if (l1.val <= l2.val) {
+    //             l3.next = l1;
+    //             l1 = l1.next;
+    //             l3 = l3.next;
+    //         } else {
+    //             l3.next = l2;
+    //             l2 = l2.next;
+    //             l3 = l3.next;
+    //         }
+    //     } else if (l2 && !l1) {
+    //         l3.next = l2;
+    //         l2 = l2.next;
+    //         l3 = l3.next;
+    //     } else if (l1 && !l2) {
+    //         l3.next = l1;
+    //         l1 = l1.next;
+    //         l3 = l3.next;
+    //     }
+    // }
+    // return cur;
 
-    let l3, cur;
-    if (l1.val <= l2.val) {
-        l3 = l1;
-        l1 = l1.next;
-    } else {
-        l3 = l2;
-        l2 = l2.next;
-    }
-    cur = l3;
-    while (l1 || l2) {
-        if (l1 && l1.val <= l2.val) {
-            l3.next = l1;
-            l1 = l1.next;
-        } else if (l2) {
-            l3.next = l2;
+    //Method 2
+    let cur = new ListNode(0),
+        dum = cur;
+    while (l1 && l2) {
+        if (l1.val >= l2.val) {
+            cur.next = l2;
             l2 = l2.next;
+        } else {
+            cur.next = l1;
+            l1 = l1.next;
         }
-        l3 = l3.next;
+        cur = cur.next;
     }
-    return cur;
+    cur.next = l1 ? l1 : l2;
+    return dum.next;
 };
 
-const head10_0 = new ListNode(1);
+const head10_0 = new ListNode(2);
 const head10_1 = new ListNode(2);
 const head10_2 = new ListNode(4);
 
@@ -154,12 +184,14 @@ var getIntersectionNode = function (headA, headB) {
     let a = headA,
         b = headB;
     while (a !== b) {
-        a = a !== null ? a.next : headB;
-        b = b !== null ? b.next : headA;
+        console.log(a.val, b.val, a.next, b.next);
+        console.log(a.next === null);
+        a = a.next !== null ? a.next : headB;
+        b = b.next !== null ? b.next : headA;
     }
     return a;
 };
-
+//[4 1 8 4 5] [5 0 1 8 4 5]
 const head11_0 = new ListNode(4);
 const head11_1 = new ListNode(1);
 
