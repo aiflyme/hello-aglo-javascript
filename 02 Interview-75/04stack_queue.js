@@ -173,10 +173,11 @@ console.log(param_4, obj);
 //17 LCR 183. 望远镜中最高的海拔
 console.log('No.17 LCR 183. 望远镜中最高的海拔');
 var maxAltitude = function (heights, limit) {
+    if (heights.length === 0) return [];
     const n = heights.length,
         queue = [],
         res = [];
-
+    if (heights.length === 0) return res;
     for (let i = 0; i < limit; i++) {
         queue.push(heights[i]);
     }
@@ -191,7 +192,7 @@ var maxAltitude = function (heights, limit) {
     }
     return res;
 };
-const heights = [14, 2, 27, -5, 28, 13, 39],
-    limit = 3;
+const heights = [],
+    limit = 0;
 const maxAltitudeRS = maxAltitude(heights, limit);
 console.log(maxAltitudeRS);
