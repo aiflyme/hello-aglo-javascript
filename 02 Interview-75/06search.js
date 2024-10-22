@@ -110,3 +110,16 @@ const records23 = [0, 1, 2, 3, 5];
 const takeAttendanceRS = takeAttendance(records23);
 
 console.log(takeAttendanceRS);
+
+//24 LCR 121. 寻找目标值 - 二维数组
+
+//25 LCR 128. 库存管理 I
+/**
+ * @param {number[]} stock
+ * @return {number}
+ */
+var inventoryManagement = function (stock) {};
+
+const stock24 = [4, 5, 8, 3, 4];
+const inventoryManagementRS = inventoryManagement(stock24);
+console.log(inventoryManagementRS);

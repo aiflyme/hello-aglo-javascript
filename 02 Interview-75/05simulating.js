@@ -6,13 +6,7 @@ console.log('No.19 LCR 146. 螺旋遍历二维数组');
  */
 var spiralArray = function (array) {
     if (array.length === 0) return [];
-    const direct = [
-            [0, 1],
-            [1, 0],
-            [0, -1],
-            [-1, 0],
-        ],
-        res = [];
+    const res = [];
     let top = 0,
         left = 0,
         down = array.length - 1,
