@@ -112,14 +112,99 @@ const takeAttendanceRS = takeAttendance(records23);
 console.log(takeAttendanceRS);
 
 //24 LCR 121. 寻找目标值 - 二维数组
+console.log('No.24 LCR 121. 寻找目标值 - 二维数组');
+/**
+ * @param {number[][]} plants
+ * @param {number} target
+ * @return {boolean}
+ */
+var findTargetIn2DPlants = function (plants, target) {
+    if (plants.length === 0) return false;
+    let i = plants.length - 1,
+        j = 0;
+
+    while (i >= 0 && j < plants[0].length) {
+        if (plants[i][j] < target) j++;
+        else if (plants[i][j] > target) i--;
+        else return true;
+    }
+    return false;
+};
+const plants24 = [
+        [2, 3, 6, 8],
+        [4, 5, 8, 9],
+        [5, 9, 10, 12],
+    ],
+    target24 = 8;
+const findTargetIn2DPlantsRS = findTargetIn2DPlants(plants24, target24);
+console.log(findTargetIn2DPlantsRS);
 
 //25 LCR 128. 库存管理 I
+console.log('No.25 LCR 128. 库存管理 I');
 /**
  * @param {number[]} stock
  * @return {number}
  */
-var inventoryManagement = function (stock) {};
+var inventoryManagement = function (stock, left, right) {
+    if (stock.length === 0) return -1;
 
-const stock24 = [4, 5, 8, 3, 4];
-const inventoryManagementRS = inventoryManagement(stock24);
+    if (left >= right) return;
+    const partition = function (stock, left, right) {
+        let i = left,
+            j = right;
+
+        while (i < j) {
+            while (i < j && stock[j] >= stock[left]) j--;
+            while (i < j && stock[i] <= stock[left]) i++;
+            [stock[i], stock[j]] = [stock[j], stock[i]];
+        }
+        [stock[left], stock[i]] = [stock[i], stock[left]];
+        return i;
+    };
+    const pivot = partition(stock, left, right);
+    inventoryManagement(stock, left, pivot - 1);
+    inventoryManagement(stock, pivot + 1, right);
+    return stock[0];
+
+    //method 2  O(n)
+    // let min = stock[0];
+    // for (let i = 1; i < stock.length; i++) {
+    //     if (stock[i] < min) min = stock[i];
+    // }
+    // return min;
+};
+
+const stock24 = [2, 4, 1, 0, 3, 5]; //[3, 0, 0, 1, 2, 2];
+const inventoryManagementRS = inventoryManagement(
+    stock24,
+    0,
+    stock24.length - 1
+);
 console.log(inventoryManagementRS);
+
+//26 LCR 169. 招式拆解 II
+/**
+ * @param {string} arr
+ * @return {character}
+ */
+console.log('No.26 LCR 169. 招式拆解 II');
+var dismantlingAction = function (arr) {
+    if (arr.length === 0) return ' ';
+    const arrMap = new Map();
+    for (let i = 0; i < arr.length; i++) {
+        arrMap.set(arr[i], !arrMap.has(arr[i]));
+        // arrMap.get(arr[i])
+        //     ? arrMap.set(arr[i], arrMap.get(arr[i]) + 1)
+        //     : arrMap.set(arr[i], 1);
+    }
+    // console.log(arrMap);
+
+    for (let [key, val] of arrMap.entries()) {
+        if (val) return key;
+    }
+    return ' ';
+};
+
+const arr26 = 'abbccdeff';
+const dismantlingActionRS = dismantlingAction(arr26);
+console.log(dismantlingActionRS);
