@@ -228,7 +228,7 @@ node31_03.right = node31_07;
 const flipTreeRS = flipTree(node31_01);
 console.log(flipTreeRS);
 
-//32 LCR 145. 判断对称二叉树（递归，清晰图解）
+//32 LCR 145. 判断对称二叉树
 console.log('No.32 LCR 145. 判断对称二叉树');
 /**
  * @param {TreeNode} root
@@ -265,3 +265,127 @@ node32_03.right = node32_07;
 
 const checkSymmetricTreeRS = checkSymmetricTree(node32_01);
 console.log(checkSymmetricTreeRS);
+
+//33 字母迷宫
+
+//34 衣橱整理
+
+//35 二叉树中和为目标值的路径
+
+//36 将二叉搜索树转化为排序的双向链表
+
+//37 寻找二叉搜索树中的目标节点
+console.log('No.37 寻找二叉搜索树中的目标节点');
+var findTargetNode = function (root, cnt) {
+    if (root === null) return -1;
+    const res = [];
+    const dfs = function (node, res, cnt) {
+        if (node === null) return;
+
+        dfs(node.right, res, cnt);
+
+        res.push(node.val);
+        if (res.length === cnt) return;
+        dfs(node.left, res, cnt);
+    };
+    dfs(root, res, cnt);
+    return res[cnt - 1];
+    //rs[rs.length - 2];
+};
+
+const cnt37 = 2,
+    node37_01 = new TreeNode(7),
+    node37_02 = new TreeNode(3),
+    node37_03 = new TreeNode(9),
+    node37_04 = new TreeNode(1),
+    node37_05 = new TreeNode(5);
+node37_01.left = node37_02;
+node37_01.right = node37_03;
+
+node37_02.left = node37_04;
+node37_02.right = node37_05;
+
+const findTargetNodeRS = findTargetNode(node37_01, cnt37);
+console.log(findTargetNodeRS);
+
+//38 计算二叉树的深度
+console.log('No.38. 计算二叉树的深度');
+var calculateDepth = function (root) {
+    //method 1
+    //if (root === null) return 0;
+    //return Math.max(calculateDepth(root.left), calculateDepth(root.right)) + 1;
+
+    //mdthod 2
+    const queue = [];
+    queue.push(root);
+    let res = 1;
+    while (queue.length > 0) {
+        const len = queue.length;
+        const tmp = [];
+        for (let i = 0; i < len; i++) {
+            const node = queue.pop();
+            if (node.left) tmp.push(node.left);
+            if (node.right) tmp.push(node.right);
+        }
+        if (tmp.length > 0) {
+            queue.push(...tmp);
+            res += 1;
+        }
+    }
+    return res;
+};
+const node38_01 = new TreeNode(1),
+    node38_02 = new TreeNode(2),
+    node38_03 = new TreeNode(2),
+    node38_04 = new TreeNode(3),
+    node38_05 = new TreeNode(5),
+    node38_06 = new TreeNode(4),
+    node38_07 = new TreeNode(4);
+
+node38_01.left = node38_02;
+node38_01.right = node38_03;
+
+node38_02.left = node38_04;
+node38_03.right = node38_05;
+
+node38_04.left = node38_06;
+node38_05.right = node38_07;
+
+const calculateDepthRS = calculateDepth(node38_01);
+console.log(calculateDepthRS);
+
+//39 LCR 176. 判断是否为平衡二叉树
+console.log('No.39 LCR 176. 判断是否为平衡二叉树');
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function (root) {
+    const recur = function (node) {
+        if (node === null) return 0;
+        const left = recur(node.left);
+        if (left === -1) return -1;
+        const right = recur(node.right);
+        if (right === -1) return -1;
+        return Math.abs(left - right) < 2 ? Math.max(left, right) + 1 : -1;
+    };
+
+    return recur(root) !== -1;
+};
+
+const node39_01 = new TreeNode(3),
+    node39_02 = new TreeNode(9),
+    node39_03 = new TreeNode(20),
+    node39_04 = new TreeNode(15),
+    node39_05 = new TreeNode(7),
+    node39_06 = new TreeNode(8);
+node39_01.left = node39_02;
+node39_01.right = node39_03;
+
+node39_03.left = node39_04;
+node39_03.right = node39_05;
+// node39_05.right = node39_06;
+
+const isBalancedRS = isBalanced(node39_01);
+console.log(node39_01);
+console.log(isBalancedRS);

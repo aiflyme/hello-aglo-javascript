@@ -83,30 +83,43 @@ const countTargetRS = countTarget(scores21, target21);
 console.log(countTargetRS);
 
 //23 LCR 173. 点名
+console.log('No.23 LCR 173. 点名');
 /**
  * @param {number[]} records
  * @return {number}
  */
 var takeAttendance = function (records) {
-    if (records.length === 0) return 0;
-    let i = 0,
-        j = records.length - 1,
-        m = Math.floor((i + j) / 2);
+    //method 1
+    // if (records.length === 0) return 0;
+    // let i = 0,
+    //     j = records.length - 1,
+    //     m = Math.floor((i + j) / 2);
+    // while (i <= j) {
+    //     //数字大于下标,在右边
+    //     if (records[m] <= m) {
+    //         i = m + 1;
+    //         //数字小于下标,在左边 if (records[m] < m)
+    //     } else {
+    //         j = m - 1;
+    //     }
+    //     m = Math.floor((i + j) / 2);
+    // }
+    // return i;
 
-    while (i <= j) {
-        //数字大于下标,在右边
-        if (records[m] <= m) {
-            i = m + 1;
-            //数字小于下标,在左边 if (records[m] < m)
-        } else {
-            j = m - 1;
-        }
-        m = Math.floor((i + j) / 2);
-    }
-    return i;
+    //method 2
+    let i = 0,
+        j = records.length - 1;
+    const cur = function (records, left, right) {
+        if (left > right) return left;
+        const m = Math.floor((left + right) / 2);
+        if (records[m] === m) left = m + 1;
+        else right = m - 1;
+        return cur(records.slice(left, right + 1), left, right);
+    };
+    return cur(records, i, j);
 };
 
-const records23 = [0, 1, 2, 3, 5];
+const records23 = [0]; //[0, 1, 2, 3, 5];
 const takeAttendanceRS = takeAttendance(records23);
 
 console.log(takeAttendanceRS);
