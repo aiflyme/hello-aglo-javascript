@@ -267,10 +267,120 @@ const checkSymmetricTreeRS = checkSymmetricTree(node32_01);
 console.log(checkSymmetricTreeRS);
 
 //33 字母迷宫
+console.log('No.33 字母迷宫');
+/**
+ * @param {character[][]} grid
+ * @param {string} target
+ * @return {boolean}
+ */
+var wordPuzzle = function (grid, target) {
+    const n = grid.length,
+        m = grid[0].length,
+        k = 0;
+
+    const dfs = function (grid, i, j, target, k) {
+        if (i < 0 || j < 0 || i >= n || j >= m || grid[i][j] != target[k])
+            return false;
+        if (k === target.length - 1) return true;
+        grid[i][j] = '';
+
+        const res =
+            dfs(grid, i + 1, j, target, k + 1) ||
+            dfs(grid, i - 1, j, target, k + 1) ||
+            dfs(grid, i, j + 1, target, k + 1) ||
+            dfs(grid, i, j - 1, target, k + 1);
+        grid[i][j] = target[k];
+        return res;
+    };
+
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < m; j++) {
+            if (dfs(grid, i, j, target, k)) return true;
+        }
+    }
+    return false;
+};
+
+const grid33 = [
+        ['A', 'B', 'C', 'E'],
+        ['S', 'F', 'C', 'S'],
+        ['A', 'D', 'E', 'E'],
+    ],
+    target33 = 'ABCB';
+
+const wordPuzzleRS = wordPuzzle(grid33, target33);
+console.log(wordPuzzleRS);
 
 //34 衣橱整理
 
 //35 二叉树中和为目标值的路径
+console.log('No.35 二叉树中和为目标值的路径');
+/**
+ * @param {TreeNode} root
+ * @param {number} target
+ * @return {number[][]}
+ */
+var pathTarget = function (root, target) {
+    //method 1
+    const res = [],
+        tmp = [];
+    const recur = function (node, target, tmp, res) {
+        if (node === null) return;
+        tmp.push(node.val);
+        target -= node.val;
+        if (target === 0 && node.left === null && node.right === null) {
+            res.push(tmp.slice());
+        }
+        recur(node.left, target, tmp, res);
+        recur(node.right, target, tmp, res);
+        tmp.pop();
+    };
+    recur(root, target, tmp, res);
+    return res;
+    //method 2
+    // const res = [],
+    //     tmp = [];
+    // const recur = function (node, target, res, tmp) {
+    //     if (node === null) return;
+    //     tmp.push(node.val);
+    //     target -= node.val;
+    //     if (target === 0 && node.left === null && node.right === null) {
+    //         res.push(tmp);
+    //     }
+    //     recur(node.left, target, res, tmp);
+    //     recur(node.right, target, res, tmp);
+    //     tmp.pop();
+    // };
+    // recur(root, target, res, tmp);
+    // return res;
+};
+
+const target35 = 22,
+    node35_01 = new TreeNode(5),
+    node35_02 = new TreeNode(4),
+    node35_03 = new TreeNode(8),
+    node35_04 = new TreeNode(11),
+    node35_05 = new TreeNode(13),
+    node35_06 = new TreeNode(4),
+    node35_07 = new TreeNode(7),
+    node35_08 = new TreeNode(2),
+    node35_09 = new TreeNode(5),
+    node35_10 = new TreeNode(1);
+
+node35_01.left = node35_02;
+node35_01.right = node35_03;
+
+node35_02.left = node35_04;
+node35_03.left = node35_05;
+node35_03.right = node35_06;
+
+node35_04.left = node35_07;
+node35_04.right = node35_08;
+node35_06.left = node35_09;
+node35_06.right = node35_10;
+
+const pathTargetRS = pathTarget(node35_01, target35);
+console.log(pathTargetRS);
 
 //36 将二叉搜索树转化为排序的双向链表
 
@@ -389,3 +499,115 @@ node39_03.right = node39_05;
 const isBalancedRS = isBalanced(node39_01);
 console.log(node39_01);
 console.log(isBalancedRS);
+
+//40 LCR 189. 设计机械累加器
+/**
+ * @param {number} target
+ * @return {number}
+ */
+var mechanicalAccumulator = function (target) {};
+
+//41 LCR 193. 二叉搜索树的最近公共祖先
+console.log('No.41 LCR 193. 二叉搜索树的最近公共祖先');
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function (root, p, q) {
+    if (root === null) return null;
+    //method 1
+    //
+    // while (root) {
+    //     if (root.val < p.val && root.val < q.val) root = root.right;
+    //     else if (root.val > p.val && root.val > q.val) root = root.left;
+    //     else break;
+    // }
+    // return root;
+
+    //method 2
+    const recur = function (root, p, q) {
+        if (root.val < p.val && root.val < q.val)
+            return recur(root.right, p, q);
+        else if (root.val > p.val && root.val > q.val)
+            return recur(root.left, p, q);
+        return root;
+    };
+    return recur(root, p, q);
+};
+
+const node41_01 = new TreeNode(6),
+    node41_02 = new TreeNode(2),
+    node41_03 = new TreeNode(8),
+    node41_04 = new TreeNode(0),
+    node41_05 = new TreeNode(4),
+    node41_06 = new TreeNode(7),
+    node41_07 = new TreeNode(9),
+    node41_08 = new TreeNode(3),
+    node41_09 = new TreeNode(5);
+
+node41_01.left = node41_02;
+node41_01.right = node41_03;
+
+node41_02.left = node41_04;
+node41_02.right = node41_05;
+node41_03.left = node41_06;
+node41_03.right = node41_07;
+
+node41_05.left = node41_08;
+node41_05.right = node41_09;
+
+const lowestCommonAncestorRS = lowestCommonAncestor(
+    node41_01,
+    node41_02,
+    node41_03
+);
+console.log(lowestCommonAncestorRS);
+
+console.log('No.42 LCR 194. 二叉树的最近公共祖先');
+//42 LCR 194. 二叉树的最近公共祖先
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestorII = function (root, p, q) {
+    if (root === null || root.val === p.val || root.val === q.val) return root;
+
+    const left = lowestCommonAncestorII(root.left, p, q);
+    const right = lowestCommonAncestorII(root.right, p, q);
+
+    if (left === null) return right;
+    if (right === null) return left;
+    return root;
+};
+
+const node42_01 = new TreeNode(3),
+    node42_02 = new TreeNode(5),
+    node42_03 = new TreeNode(1),
+    node42_04 = new TreeNode(6),
+    node42_05 = new TreeNode(2),
+    node42_06 = new TreeNode(0),
+    node42_07 = new TreeNode(8),
+    node42_08 = new TreeNode(7),
+    node42_09 = new TreeNode(4);
+
+node42_01.left = node42_02;
+node42_01.right = node42_03;
+
+node42_02.left = node42_04;
+node42_02.right = node42_05;
+node42_03.left = node42_06;
+node42_03.right = node42_07;
+
+node42_05.left = node42_08;
+node42_05.right = node42_09;
+
+const lowestCommonAncestorIIRS = lowestCommonAncestorII(
+    node42_01,
+    node42_02,
+    node42_04
+);
+console.log(lowestCommonAncestorIIRS);
