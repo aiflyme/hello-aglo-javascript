@@ -40,11 +40,13 @@ function linear(n) {
     for (let i = 0; i < n; i++) {
         nodes.push(new ListNode(i));
     }
+    console.log(nodes);
     // 长度为 n 的哈希表占用 O(n) 空间
     const map = new Map();
     for (let i = 0; i < n; i++) {
         map.set(i, i.toString());
     }
+    console.log(map);
 }
 
 /* 线性阶（递归实现） */
@@ -61,6 +63,7 @@ function quadratic(n) {
         .fill(null)
         .map(() => Array(n).fill(null));
     // 二维列表占用 O(n^2) 空间
+    console.log(numMatrix);
     const numList = [];
     for (let i = 0; i < n; i++) {
         const tmp = [];
@@ -69,6 +72,7 @@ function quadratic(n) {
         }
         numList.push(tmp);
     }
+    console.log(numList);
 }
 
 /* 平方阶（递归实现） */
@@ -100,4 +104,5 @@ quadratic(n);
 quadraticRecur(n);
 // 指数阶
 const root = buildTree(n);
+console.log(root);
 printTree(root);
