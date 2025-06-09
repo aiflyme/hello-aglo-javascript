@@ -24,7 +24,7 @@ class HashMapOpenAddressing {
     /* 构造方法 */
     constructor() {
         this.#size = 0; // 键值对数量
-        this.#capacity = 4; // 哈希表容量
+        this.#capacity = 5; // 哈希表容量
         this.#loadThres = 2.0 / 3.0; // 触发扩容的负载因子阈值
         this.#extendRatio = 2; // 扩容倍数
         this.#buckets = Array(this.#capacity).fill(null); // 桶数组
@@ -47,7 +47,7 @@ class HashMapOpenAddressing {
         let firstTombstone = -1;
         // 线性探测，当遇到空桶时跳出
         while (this.#buckets[index] !== null) {
-            // 若遇到 key ，返回对应的桶索引
+            // 若遇到key ，返回对应的桶索引
             if (this.#buckets[index].key === key) {
                 // 若之前遇到了删除标记，则将键值对移动至该索引处
                 if (firstTombstone !== -1) {
@@ -90,7 +90,7 @@ class HashMapOpenAddressing {
     put(key, val) {
         // 当负载因子超过阈值时，执行扩容
         if (this.#loadFactor() > this.#loadThres) {
-            this.#extend();
+            // this.#extend();
         }
         // 搜索 key 对应的桶索引
         const index = this.#findBucket(key);
