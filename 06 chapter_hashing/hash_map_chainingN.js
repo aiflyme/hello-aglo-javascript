@@ -91,8 +91,12 @@ class HashMapChaining {
         for (let i = 0; i < this.#buckets.length; i++) {
             const bucket = this.#buckets[i];
             let res = [];
-            for (let j = 0; j < bucket.length; j++) {
-                res.push(`${bucket[j].key} -> ${bucket[j].val} `);
+
+            // for (let j = 0; j < bucket.length; j++) {
+            //     res.push(`${bucket[j].key} -> ${bucket[j].val} `);
+            // }
+            for (const bk of bucket) {
+                res.push(`${bk.key} -> ${bk.val} `);
             }
             console.log(res);
         }
